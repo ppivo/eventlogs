@@ -1,0 +1,1 @@
+Get-WinEvent -ListLog * | sort recordcount |select -last 10 |select -expand logname | %{(Get-WinEvent -ErrorAction 0 -FilterHashtable @{Logname=$_;Level=2;StartTime=(Get-Date).AddDays(-7)}) |group providername} |sort count -descending | ft -auto
